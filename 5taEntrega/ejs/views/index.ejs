@@ -1,0 +1,26 @@
+<%- include('./encabezado')-%>
+
+    <body>
+        <div class="container mt-4">
+            <div class="jumbotron">
+                <h1>Ingrese producto</h1>
+                <br>
+                <form action="/productonuevo" method="POST">
+                    <div class="form-group">
+                        <label for="Nombre"><b>Nombre</b></label>
+                        <input id="nombre" class="form-control" type="text" name="nombre">
+                        <label for="Price"><b>Precio</b></label>
+                        <input id="price" class="form-control" type="number" name="price">
+                        <label for="Thumbnail"><b>URL</b></label>
+                        <input id="thumbnail" class="form-control" type="text" name="thumbnail">
+                    </div>
+                    <div>
+                    <button class="btn btn-success">Cargar Producto</button>
+                    <a href="http://localhost:8080/productos" class="btn btn-primary">Ver Productos</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+
+    </html>

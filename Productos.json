@@ -1,5 +1,4 @@
-{
-  "productos": [
+[
     {
       "nombre": "Celular",
       "price": 100,
@@ -18,5 +17,4 @@
       "thumbnail": "https://calculadora.com",
       "id": "3"
     }
-  ]
-}
+]

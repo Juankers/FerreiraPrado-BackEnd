@@ -1,0 +1,18 @@
+
+html(lang="es")
+    head 
+        title="PUG"
+    body 
+        h1="Listado de productos"
+        table(style= "background: black; margin:20px")
+            tr(style="color: white")
+                th='Nombre'
+                th='Price'
+                th='Thumbnail'
+            tr   
+            each producto in productos
+                tr
+                td(style="color: white;")=producto.nombre
+                td(style="color: white")=producto.price
+                td(style="color: white")=producto.thumbnail
+    <a (class="btn btn-primary") href="http://localhost:8080/">Nuevo producto</a>            

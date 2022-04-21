@@ -1,0 +1,22 @@
+extends encabezado
+block partial
+    body 
+        div(class="container mt-4")
+            div(class="jumbotron")
+                h1="Ingrese producto"
+                br    
+                form(action="/productonuevo" method="POST")
+                    div(class="form-group")
+                        label(for="title")
+                        b="Nombre"
+                        input(class="form-control" type="text" name="nombre")
+                        label(for="nombre")
+                        b="Precio"
+                        input(class="form-control" type="number" name="price")
+                        label(for="thumbnail")
+                        b="URL"
+                        input(class="form-control" type="text" name="thumbnail")                      
+                        br
+                        div
+                            button(class="btn btn-success")="Cargar Producto"
+                            <a href="http://localhost:8080/productos" class="btn btn-primary">Ver Productos</a>
