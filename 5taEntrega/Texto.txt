@@ -1,0 +1,6 @@
+.Para mi proyecto el que más fácil me resulto utilizar es el HANDLEBARS, 
+fue el que más entendí y el que me resultó más facil implementar en código.
+.El  PUG es otro que me gustó, pero no le llegó al HANDLEBARS, ya que,
+se me complicó un poco entender la estructura del HTML.
+.El que directamente no usaría es EJS, ya que,
+se me complicó muhco el llamado de las etiquetas, siento que me atrasaía mucho el manejo del mismo
