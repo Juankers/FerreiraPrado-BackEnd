@@ -36,7 +36,7 @@ class Carrito{
         });
         return mostrar;
     }
-    get_product (id_cart){
+    get_cart (id_cart){
         let data = fs.readFileSync(this.nombreArchivo,'utf-8')
         let dataParse = JSON.parse(data)
         let carrito = null
@@ -46,6 +46,21 @@ class Carrito{
             }
         });
         return carrito.productos;
+    }
+    get_product_in_cart(id_cart, id_prod){
+        let data = fs.readFileSync(this.nombreArchivo,'utf-8')
+        let dataParse = JSON.parse(data)
+        let producto = null;
+        dataParse.forEach(cart => {
+            if(id_cart === cart.id){
+                cart.productos.forEach(element =>{
+                    if(id_prod === element.id){
+                        producto = element
+                    }
+                })
+            }
+        });
+        return producto
     }
     getAll(){
         let data = fs.readFileSync(this.nombreArchivo,'utf-8')
@@ -67,15 +82,11 @@ class Carrito{
     delete_Product(id_cart, id_prod){
         let data = fs.readFileSync(this.nombreArchivo,'utf-8')
         let dataParse = JSON.parse(data)
-        let contador = 0
         dataParse.forEach(cart => {
             if(id_cart === cart.id){
-                cart.forEach(element =>{
-                    if(id_prod === element.id){
-                        cart.splice(contador,1)
-                    }      
-                    contador = contador + 1
-                })
+                cart.productos = cart.productos.filter(element =>
+                    element.id != id_prod 
+                )
             }
         });
         fs.writeFileSync(this.nombreArchivo, JSON.stringify(dataParse),null,2)

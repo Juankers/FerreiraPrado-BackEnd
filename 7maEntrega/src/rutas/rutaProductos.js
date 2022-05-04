@@ -1,7 +1,7 @@
 const express       = require('express');
 const { Router }    = express;
 const productos     = Router();
-let isAdministrador = false;
+let isAdministrador = true;
 
 const { Productos } = require('../manage/productos');
 let prod = new Productos();
@@ -10,7 +10,7 @@ let prod = new Productos();
 //GET productos
 productos.get('/:id?', (req, resp) => {
     let productos = prod.getAll();
-    if(productos.lenght > 0){
+    if(productos.length > 0){
         if(req.params.id){
             let id = req.params.id;
             resp.send(prod.getById(id));
@@ -48,7 +48,7 @@ productos.put('/:id', (req, resp) => {
 productos.delete('/:id', (req, resp) => {
     if(isAdministrador){
         let productos = prod.getAll();
-        if(productos.lenght > 0){
+        if(productos.length > 0){
             let id       = req.params.id
             let producto = prod.getById(id)
             if(producto){

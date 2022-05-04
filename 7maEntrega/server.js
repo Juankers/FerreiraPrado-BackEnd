@@ -12,12 +12,9 @@ const carrito = require('./src/rutas/rutaCarrito');
 //Routers
 app.use('/api/productos', productos);
 app.use('/api/carrito'  , carrito);
-
-app.use(function (err, req, resp, next) {
-    console.error(err);
-    resp.status(500).send('something broke!!');
+app.use(function(req, resp) {
+    resp.status(404).send({Error: '-2', description: 'No implementado'});
 });
-
 app.listen(PORT, () => {
     console.log('Aplicación iniciada en el PORT: ' + PORT);
-})
+});

@@ -35,8 +35,8 @@ carrito.delete('/:id/productos/:id_prod', (req, resp) => {
     let id_cart  = req.params.id;
     let id_prod  = req.params.id_prod;
     let carrito  = cart.getById(id_cart)
-    let producto = productos.getById(id_prod)
     if(carrito){
+        let producto = cart.get_product_in_cart(id_cart,id_prod)
         if(producto){
             resp.send(cart.delete_Product(id_cart,id_prod));
         } else resp.send({Error: `No hay ningun producto con id:${id_prod} en el carrito`})
@@ -47,8 +47,10 @@ carrito.get('/:id/productos', (req, resp) => {
     let id      = req.params.id;
     let carrito = cart.getById(id)
     if(carrito){
-        resp.send(cart.get_product(id));
+        resp.send(cart.get_cart(id));
     } else resp.send({Error: `No hay ningun carrito con id:${id}`})
 })
-
+carrito.get('/:id/productoss/:idd', (req, resp) => {
+    resp.send(cart.get_product_in_cart(req.params.id,req.params.idd))
+})
 module.exports = carrito;
