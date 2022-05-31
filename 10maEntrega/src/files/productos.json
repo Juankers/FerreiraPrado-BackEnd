@@ -1,0 +1,42 @@
+[
+  {
+    "id": "1",
+    "fecha": "Tue May 03 2022 13:44:18 GMT-0300 (hora estándar de Argentina)",
+    "nombre": "Calculadora",
+    "descripcion": "Esta es una calculadora común y corriente",
+    "codigo": 234,
+    "foto": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.maxihogar.com.ar%2Fcalculadora-casio-lc-403tv-1211%2Fp&psig=AOvVaw2sTK8ElX1Cp9DZ2gUeKp0E&ust=1651682475479000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCJC3z-viw_cCFQAAAAAdAAAAABAD",
+    "precio": 1000,
+    "stock": 35
+  },
+  {
+    "id": "2",
+    "fecha": "Tue May 03 2022 13:46:29 GMT-0300 (hora estándar de Argentina)",
+    "nombre": "Computadora",
+    "descripcion": "Esta es una computadora común y corriente",
+    "codigo": 123,
+    "foto": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.infobae.com%2Famerica%2Ftecno%2F2021%2F01%2F12%2Fces-2021-computadoras-livianas-potentes-y-hechas-con-productos-sustentables%2F&psig=AOvVaw32-EAQxSrFh6dbZUgFgi_e&ust=1651682692928000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCPCftdTjw_cCFQAAAAAdAAAAABAD",
+    "precio": 2000,
+    "stock": 20
+  },
+  {
+    "id": "3",
+    "fecha": "Tue May 03 2022 13:49:21 GMT-0300 (hora estándar de Argentina)",
+    "nombre": "Celular",
+    "descripcion": "Este es un celular común y corriente",
+    "codigo": 564,
+    "foto": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.falabella.com.ar%2Ffalabella-ar%2Fproduct%2F2984872%2FCelular-libre-A7-negro-64GB-4GB-RAM%2F2984872&psig=AOvVaw36paDSvUJ-XHbL2TA5ii0E&ust=1651682840732000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCPj287fkw_cCFQAAAAAdAAAAABAQ",
+    "precio": 5000,
+    "stock": 50
+  },
+  {
+    "id": "4",
+    "fecha": "Tue May 03 2022 14:45:46 GMT-0300 (hora estándar de Argentina)",
+    "nombre": "Celular",
+    "descripcion": "Este es un celular común y corriente",
+    "codigo": 564,
+    "foto": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.falabella.com.ar%2Ffalabella-ar%2Fproduct%2F2984872%2FCelular-libre-A7-negro-64GB-4GB-RAM%2F2984872&psig=AOvVaw36paDSvUJ-XHbL2TA5ii0E&ust=1651682840732000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCPj287fkw_cCFQAAAAAdAAAAABAQ",
+    "precio": 5000,
+    "stock": 50
+  }
+]
