@@ -1,5 +1,5 @@
-import {faker} from require('fake')
-
+const faker = require('faker')
+faker.locale = 'es'
 class Productos {
     constructor(nombreTabla){
         this.nombreTabla = nombreTabla
@@ -29,8 +29,18 @@ class Productos {
             const productos = await knex(this.nombreTabla).select("*");
             return productos
     }
-    makefake = async ( knex, product ) =>{
-        const save = await knex(this.nombreTabla).insert({...product})
+    makefake = async () => {
+        let productos = []
+        for(let i = 0; i < 30; i++){
+            productos.push({
+                nombre: faker.commerce.productName(),
+                price: faker.commerce.price(),
+                thumbnail: faker.image.imageUrl()
+            })
+        }
+        console.log(productos)
+        return productos;
+    }
 }
-}
+
 module.exports = {Productos};
