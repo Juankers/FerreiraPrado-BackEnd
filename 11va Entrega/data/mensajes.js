@@ -8,13 +8,13 @@ class Mensajes {
         .then( existe => {
             if(!existe){
                 return  knex.schema.createTable(this.nombreTabla, (table) =>{
-                    table.enu('author', ['mail', 'nombre', 'apellido', 'edad', 'icono'])
+                    table.increments('mail').primary().notNullable()
+                    table.string('nombre').notNullable();
+                    table.string('apellido').notNullable();
+                    table.string('edad').notNullable()
+                    table.string('icono').notNullable()
+                    table.string('hora')
                     table.string('message').notNullable();
-
-                    // table.increments('id').primary().notNullable()
-                    // table.string('mail').notNullable()
-                    // table.string('mensaje').notNullable()
-                    // table.string('hora')
                 })
             }
         })

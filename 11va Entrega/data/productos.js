@@ -31,7 +31,7 @@ class Productos {
     }
     makefake = async () => {
         let productos = []
-        for(let i = 0; i < 30; i++){
+        for(let i = 0; i < 5; i++){
             productos.push({
                 nombre: faker.commerce.productName(),
                 price: faker.commerce.price(),
