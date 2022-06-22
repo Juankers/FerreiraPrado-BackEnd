@@ -1,8 +1,8 @@
 const fs = require('fs');
 
 class ContainerArchivo {
-    constructor(fileName) {
-        this.fileName = fileName;
+    constructor(nombreArchivo) {
+        this.nombreArchivo = nombreArchivo;
     }
 
 }

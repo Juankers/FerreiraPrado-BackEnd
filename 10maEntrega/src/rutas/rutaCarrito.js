@@ -3,10 +3,10 @@ const { Router } = express;
 const carrito    = Router();
 
 
-const { Carrito   } = require('../daos/Carrito/CarritoDaoArchivo');
-const { Productos } = require('../daos/Productos/ProductoDaoArchivo');
-let CarritoDao      = new Carrito();
-let ProductosDao    = new Productos();
+const { CarritoDaoArchivo   } = require('../daos/Carrito/CarritoDaoArchivo');
+const { ProductoDaoArchivo } = require('../daos/Productos/ProductoDaoArchivo');
+let CarritoDao      = new CarritoDaoArchivo();
+let ProductosDao    = new ProductoDaoArchivo();
 
 
 // const { Carrito   } = require('../daos/Carrito/CarritoDaoFirebase');

@@ -1,41 +1,46 @@
-const faker = require('faker')
-faker.locale = 'es'
+const ProductoModel = require('../models/productoSchema.js');
+const faker = require('faker');
+faker.locale = 'es';
+
 class Productos {
-    constructor(nombreTabla){
-        this.nombreTabla = nombreTabla
+    constructor() { }
+    async add(req) {
+        const data = {
+            title     : req.body.nombre,
+            price     : req.body.price,
+            thumbnail : req.body.thumbnail
+        }
+        const newProducto = await ProductoModel.create(data);
+        return newProducto;
     }
-    newTable = async ( knex ) => {
-        await knex.schema.hasTable(this.nombreTabla)
-        .then( existe => {
-            if(!existe){
-                return knex.schema.createTable(this.nombreTabla, (table) =>{
-                    table.increments('id').primary().notNullable()
-                    table.string('nombre').notNullable()
-                    table.integer('price').notNullable()
-                    table.string("thumbnail").notNullable()
-                })
-            }
-        })
-        .catch( error => {
-            console.log('error !!!', error.message, error.stack)
-            return
-        })
+    async findAll() {
+        const prodInDb = await ProductoModel.find({});
+        return prodInDb;
     }
-    add = async ( knex, product ) =>{
-            const save = await knex(this.nombreTabla).insert({...product})
+    async findByID(req) {
+        const _id = req.params.id;
+        const prodById = await ProductoModel.findOne({ _id });
+        return prodById;
+
     }
-    
-    getAll = async knex =>{
-            const productos = await knex(this.nombreTabla).select("*");
-            return productos
+    async deleteProd(req) {
+        const _id = req.params.id;
+        const prodToDel = await ProductoModel.deleteOne({ _id });
+        return prodToDel;
     }
-    makefake = async () => {
+    async update(req) {
+        const _id = req.params.id;
+        const data = { ...req.body };
+        const prodUpdated = await ProductoModel.updateOne({ _id }, data, { new: true });
+        return prodUpdated;
+    }
+    async makefake () {
         let productos = []
         for(let i = 0; i < 5; i++){
-            productos.push({
-                nombre: faker.commerce.productName(),
-                price: faker.commerce.price(),
-                thumbnail: faker.image.imageUrl()
+            await productos.push({
+                nombre    : faker.commerce.productName(),
+                price     : faker.commerce.price(),
+                thumbnail : faker.image.imageUrl()
             })
         }
         console.log(productos)
@@ -43,4 +48,4 @@ class Productos {
     }
 }
 
-module.exports = {Productos};
+module.exports = { Productos }

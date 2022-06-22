@@ -1,5 +1,5 @@
-const {ContainerArchivo}=require("../../Contenedores/ContenedorArchivo");
-
+const {ContainerArchivo}=require("../../Contenedores/ContenedorArchivos");
+const fs = require('fs');
 class ProductoDaoArchivo extends ContainerArchivo{
     constructor(){
         super('./src/files/productos.json')

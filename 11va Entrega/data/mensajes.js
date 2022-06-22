@@ -1,64 +1,47 @@
+const MensajeModel =require('../models/mensajeSchema.js')
+const schema       = require('normalizr')
+const normalize    = require('normalizr')
 
 class Mensajes {
-    constructor(nombreTabla) {
-        this.nombreTabla = nombreTabla
-    }
-    newTable = async ( knex ) => {
-        await knex.schema.hasTable(this.nombreTabla)
-        .then( existe => {
-            if(!existe){
-                return  knex.schema.createTable(this.nombreTabla, (table) =>{
-                    table.increments('mail').primary().notNullable()
-                    table.string('nombre').notNullable();
-                    table.string('apellido').notNullable();
-                    table.string('edad').notNullable()
-                    table.string('icono').notNullable()
-                    table.string('hora')
-                    table.string('message').notNullable();
-                })
-            }
-        })
-        .catch( error => {
-            console.log('error !!!', error.message, error.stack)
-            return
-        })
-    }
-    add = async ( knex,msg ) =>{
-        try {
-            const save = await knex(this.nombreTabla).insert({...msg})
-            return {
-                status  : 'success',
-                payload : save
-            }
-        } catch (error) {
-            console.log(error)
-            return {
-                Error:{
-                    status  : "Error save.",
-                    message : error.message
-                }
-            }
+    constructor() { }
+    async addMsg(req, res) {
+        const data = await { ...req }
+        const mensaje = {
+            author: {
+                email    : data.mensajes.author.email,
+                nombre   : data.mensajes.author.nombre,
+                apellido : data.mensajes.author.apellido,
+                edad     : data.mensajes.author.edad,
+                icono    : data.mensajes.author.icono
+            },
         }
+        mensaje.text = data.mensajes.text,
+        hora.text    = data.mensajes.hora
+        const newMsg = await MensajeModel.create(mensaje);
     }
-    
-    getAll = async ( knex ) =>{
-        try{
-            const mensajes = await knex(this.nombreTabla).select("*");
-            return {
-                status  : 'success',
-                payload : mensajes
+    async findAllMsg(req, res) {
+        let mensajes = await MensajeModel.find();
+        let id = 'mensajes'
+        return res.status(200).json({ id, mensajes });
+    }
+    async normalizedData(req, res) {
+            let mensajes = await MensajeModel.find();
+            let msgOriginal = {
+                id: 'mensajes',
+                mensajes: mensajes.map( mensaje => ({...mensaje._doc}))
             }
-        }
-        catch{(error)=>{
-            return {
-                Error:{
-                    status  : "Error read database.",
-                    message : error.message
-                }
-            }
-        }}    
+            const schemaAuthor = new schema.Entity('author', {}, { idAttribute: 'email' });
+            const schemaMensaje = new schema.Entity('mensaje', {
+                author: schemaAuthor
+            }, { idAttribute: '_id' })
+            const schemaMensajes = new schema.Entity('mensajes', {
+                mensajes: [schemaMensaje]
+            }, { idAttribute: 'id' })
+            let normalizedData = normalize(msgOriginal, schemaMensajes);
+            console.log(util.inspect(normalizedData, false, 5, true))
+            console.log("length Original", JSON.stringify(msgOriginal).length);
+            console.log("length Normalize", JSON.stringify(normalizedData).length);
+            res.send(normalizedData)
     }
 }
-module.exports = {Mensajes};
-
-
+module.exports = { Mensajes }

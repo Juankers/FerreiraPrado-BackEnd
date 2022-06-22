@@ -4,8 +4,8 @@ const productos     = Router();
 let isAdministrador = true;
 
 
-const { Productos } = require('../daos/Productos/ProductoDaoArchivo');
-let ProductosDao    = new Productos();
+const { ProductoDaoArchivo } = require('../daos/Productos/ProductoDaoArchivo');
+let ProductosDao    = new ProductoDaoArchivo();
 
 
 // const { Productos } = require('../daos/Productos/ProductoDaoFirebase');

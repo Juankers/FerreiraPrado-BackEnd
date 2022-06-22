@@ -1,20 +1,35 @@
-const { knexProd, knexMsg } = require('./options/mariaDB');
 const express = require('express');
 const handlebars = require('express-handlebars');
-const PORT = 8080
-const app = express();
 const { Server: HttpServer } = require('http');
 const { Server:IOServer } = require('socket.io');
-const httpServer = new HttpServer(app);
-const io = new IOServer(httpServer);
+const mongoose = require('mongoose');
 
 const { Productos } = require('./data/productos');
 let productos = new Productos('productos');
-productos.newTable(knexProd)
 
 const { Mensajes } = require('./data/mensajes');
 let mensajes = new Mensajes('mensajes');
-mensajes.newTable(knexMsg);
+
+
+
+const prod = express();
+const msg = express();
+const app = express();
+const httpServer = new HttpServer(app);
+const io = new IOServer(httpServer);
+const PORT = 8080;
+
+// MOONGOSE
+const uri = 'mongodb+srv://Juankers:juancruz@cluster0.gsiau.mongodb.net/?retryWrites=true&w=majority'
+const options = {
+    useNewUrlParser: true, 
+    useUnifiedTopology: true
+  }
+mongoose.connect(uri, options)
+    .then(() => { console.log('Conectado a Mongo') },
+        err => { err }
+    )
+
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
@@ -36,9 +51,10 @@ app.get('/', (req, resp) => {
     resp.render('index')
 })
 
+
 //GET
 app.get('/productos', async (req, resp) => {
-    let prod = await productos.getAll(knexProd);
+    let prod = await productos.findAll();
     resp.render('productos', { productos: prod})
 })
 app.get('/chat', async (req, resp) => {
@@ -50,28 +66,28 @@ app.get('/productos-test', async (req, resp) => {
 })
 //POST
 app.post('/productonuevo', async (req, resp) => {
-    console.log(await req.body);
-    await productos.add( knexProd,req.body )
+    await productos.add(req);
 })
 
+let toChat = []
 
-io.on('connection', (socket) => {
-    console.log('Cliente conectado');
+io.on('connection', socket => {
+    io.sockets.emit('new-message-server', toChat)
+    
+    socket.on('new-message', async data => {
+        const mensajes = await data;
+        toChat.push(data);
+        mensajes.addMsg({ mensajes })
+        io.sockets.emit('new-message-server', toChat)
+    });
 
-    mensajes.getAll(knexMsg).then(result => {
-            socket.emit('messages', result.payload)
-    })
+    socket.on('new-producto', async data => {
+        const producto = await data;
+        productos.add({ producto })
+        io.sockets.emit('new-prod-server', producto)
+    });
 
-    socket.on('new-message', (data) => {
-        mensajes.add(knexMsg,data)
-                .then(() => {
-                    mensajes.getAll(knexMsg).then(result => {
-                        console.log(result.payload);
-                            io.sockets.emit('messages', result.payload)
-                    })
-                })
-    })
-})
+});
 httpServer.listen(PORT, () => {
     console.log('SERVER ON en el puerto: ' + PORT);
 });
