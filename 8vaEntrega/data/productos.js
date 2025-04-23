@@ -1,4 +1,4 @@
-import {faker} from require('fake')
+import { faker } from '@faker-js/faker';
 
 class Productos {
     constructor(nombreTabla){
